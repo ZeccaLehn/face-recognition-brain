@@ -1,4 +1,5 @@
-import React from 'react';
+// import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
 import Particles from 'react-particles-js';
@@ -11,34 +12,57 @@ import Rank from './Components/Rank/Rank.js'
 
 // <FaceRecognition />
 
-// Particles Component as Background 
+// Particles Component as Background (Updated Commit) 
 const particleOptions = {
- 					particles: {
-		            			line_linked: {
-		            				shadow: {
-		            					enable: true,
-		            					color: "#3CA9D1",
-		            					blur: 5
-		            				}
-		            			}
-		            		}
-		            	}
+  particles: {
+    number: {
+      value: 60,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    }
+  }
+}
 
 // Main App w/ Responsiveness
-function App() {
-  return (
-    <div className="App">
+// For taking inputs, we want to create 'state' with constructor
+// Updates and changes made through event recieved
+class App extends Component{
 
-		<Particles className='particles' params={particleOptions}/>
+	/* For creating State within input box*/
+	constructor(){
+		super();
+		this.state = {
+			input: '',
+		};
+	};
 
-		<Navigation />
-		<Logo />
-		<Rank />
-		<ImageLinkForm />
+	onInputChange = (event) => {
+
+		/* Use console, with typing to see returns */
+		console.log(event.target.value);
+	};
+
+	render(){
+
+		return (
+	    <div className="App">
+
+			<Particles className='particles' params={particleOptions}/>
+
+			<Navigation />
+			<Logo />
+			<Rank />
+			{/* Takes class event with 'this.onInputChange' as property of App*/}
+			{/* Needs to get triggered from impageLinkForm.js */}
+			<ImageLinkForm onInputChange={this.onInputChange}/>
 
 
-    </div>
-  );
-}
+	    </div>
+  		);
+	};
+};
+  
 
 export default App;
