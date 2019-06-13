@@ -44,6 +44,10 @@ class App extends Component{
 		console.log(event.target.value);
 	};
 
+	onButtonSubmit = (event) => {
+		console.log('click');
+	}
+
 	render(){
 
 		return (
@@ -56,7 +60,10 @@ class App extends Component{
 			<Rank />
 			{/* Takes class event with 'this.onInputChange' as property of App*/}
 			{/* Needs to get triggered from impageLinkForm.js */}
-			<ImageLinkForm onInputChange={this.onInputChange}/>
+			{/* Add onButtonSubmit to imageLinkForm.js to print 'here' with button click  */}
+			<ImageLinkForm 
+				onInputChange={this.onInputChange} 
+				onButtonSubmit={this.onButtonSubmit}/>
 
 
 	    </div>
