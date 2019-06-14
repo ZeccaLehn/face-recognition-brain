@@ -8,9 +8,16 @@ import Logo from './Components/Logo/Logo.js';
 import ImageLinkForm from './Components/ImageLinkForm/ImageLinkForm.js'
 import Rank from './Components/Rank/Rank.js'
 
+// Image Recognition
+import Clarifai from 'clarifai';
+import FaceRecognition from './Components/FaceRecognition/FaceRecognition.js'
 
 
-// <FaceRecognition />
+const app = new Clarifai.App({
+	apiKey: 'a88e03476ef542019c7dd2c492738b5b'
+});
+
+
 
 // Particles Component as Background (Updated Commit) 
 const particleOptions = {
@@ -33,19 +40,40 @@ class App extends Component{
 	/* For creating State within input box*/
 	constructor(){
 		super();
+
+		/* Empty to start state */
 		this.state = {
 			input: '',
+			imageURL: ''
 		};
 	};
 
 	onInputChange = (event) => {
 
-		/* Use console, with typing to see returns */
-		console.log(event.target.value);
+		/* Use console, with typing to see returns and pass to faceRecognition*/
+		/* console.log(event.target.value); */
+		/* Change State after photo is predicted */
+		this.setState({input: event.target.value})
 	};
 
 	onButtonSubmit = (event) => {
 		console.log('click');
+		/* Return image */
+		this.setState({ imageUrl: this.state.input})
+
+		/* For submitting to API on button click */
+		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input).then(
+		    function(response) {
+		      // do something with response
+		      console.log('response returned');
+		      console.log(response);
+		      console.log(response.outputs[0].data.regions[0].region_info.bounding_box)
+		    },
+		    function(err) {
+		      // there was an error
+		      console.log('there was an error');
+    }
+  );
 	}
 
 	render(){
@@ -64,6 +92,8 @@ class App extends Component{
 			<ImageLinkForm 
 				onInputChange={this.onInputChange} 
 				onButtonSubmit={this.onButtonSubmit}/>
+			{/* Takes imageUrl and passes to Facerecognition.js image src */}
+			<FaceRecognition imageUrl={this.state.imageUrl} /> 
 
 
 	    </div>

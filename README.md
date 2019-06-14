@@ -45,3 +45,20 @@ https://www.npmjs.com/package/react-particles-js
 ---------------------------------------------------------
 
 `npm install react-particles-js`
+
+----------------------------------------------------------
+# 231. Image Recognition API
+----------------------------------------------------------
+
+Using Clarifai.com for facial recognition
+Need to setup account first, then install:
+`npm install clarifai`
+
+Practice using this url (green landscape w/ `Clarifai.COLOR_MODEL`):
+https://png.pngtree.com/element_our/png/20180809/color-powder-background-png_48645.png
+
+For general demographics use (face img w/`Clarifai.GENERAL_MODEL`):
+https://media4.s-nbcnews.com/i/newscms/2017_47/2233721/171120-smile-stock-njs-333p_4ecd5b9a2aefbfdfbc3331c6d474d963.jpg
+
+Then we'll use the facial detection bounding-box (face img w/`Clarifai.FACE_DETECT_MODEL`):
+https://media4.s-nbcnews.com/i/newscms/2017_47/2233721/171120-smile-stock-njs-333p_4ecd5b9a2aefbfdfbc3331c6d474d963.jpg

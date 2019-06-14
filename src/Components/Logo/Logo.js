@@ -11,7 +11,7 @@ const Logo = () => {
 	return (
 		<div className='Logo ma2 mt0'>
 
-			<Tilt className="br2 pa2" options={{ max : 55 }} style={{ height: 75, width: 250 }} >
+			<Tilt className="br2 pa2" options={{ max : 55 }} style={{ height: 115, width: 250 }} >
 				<div className='Tilt pa1'>
 				
 					{/* Alt import from source w/in return()
