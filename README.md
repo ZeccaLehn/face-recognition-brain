@@ -41,8 +41,10 @@
 
 ----------------------------------------------------------
 # Install Particles (dynamic D3) for React
-https://www.npmjs.com/package/react-particles-js
 ---------------------------------------------------------
+
+Link to Particles package:
+https://www.npmjs.com/package/react-particles-js
 
 `npm install react-particles-js`
 
@@ -62,3 +64,20 @@ https://media4.s-nbcnews.com/i/newscms/2017_47/2233721/171120-smile-stock-njs-33
 
 Then we'll use the facial detection bounding-box (face img w/`Clarifai.FACE_DETECT_MODEL`):
 https://media4.s-nbcnews.com/i/newscms/2017_47/2233721/171120-smile-stock-njs-333p_4ecd5b9a2aefbfdfbc3331c6d474d963.jpg
+
+```
+Optional: Advanced setState()
+Calling setState() in React is asynchronous, for various reasons (mainly performance). Under the covers React will batch multiple calls to setState() into a single call, and then re-render the component a single time, rather than re-rendering for every state change. Therefore the imageUrl parameter would have never worked in our example, because when we called Clarifai with our the predict function, React wasn't finished updating the state. 
+
+One way to go around this issue is to use a callback function:
+
+setState(updater, callback)
+
+https://reactjs.org/docs/react-component.html#setstate
+
+```
+
+ ----------------------------------------------------
+# 233. Face Detection Box
+-----------------------------------------------------
+
