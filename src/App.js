@@ -12,11 +12,14 @@ import Rank from './Components/Rank/Rank.js'
 import Clarifai from 'clarifai';
 import FaceRecognition from './Components/FaceRecognition/FaceRecognition.js'
 
+// Signin
+import Signin from './Components/Signin/Signin.js';
+import Register from './Components/Register/Register.js';
 
+// YOUR_API_KEY
 const app = new Clarifai.App({
-	apiKey: 'a88e03476ef542019c7dd2c492738b5b'
+	apiKey: 'YOUR_API_KEY'
 });
-
 
 
 // Particles Component as Background (Updated Commit) 
@@ -45,7 +48,9 @@ class App extends Component{
 		this.state = {
 			input: '',
 			imageURL: {},
-			box: ''
+			box: {},
+			route: 'signin',
+			isSignedIn: false
 		};
 	};
 
@@ -63,7 +68,6 @@ class App extends Component{
 	  }
 
 	displayFaceBox = (box) => {
-		console.log(box);
 		this.setState({box: box});
 	}
 
@@ -76,7 +80,7 @@ class App extends Component{
 	};
 
 	onButtonSubmit = (event) => {
-		console.log('click');
+		// console.log('click');
 		/* Return image */
 		this.setState({ imageUrl: this.state.input})
 
@@ -87,27 +91,64 @@ class App extends Component{
   		);
 	}
 
+	// Prop used below in Signin
+	onRouteChange = (route) => {
+		
+		if(route === 'signin'){
+
+			this.setState({isSignedIn: false});
+
+		} else if (route === 'home'){
+
+			this.setState({isSignedIn: true});
+
+		}
+		
+		this.setState({route: route})
+	};
+
 	render(){
 
+		const { isSignedIn, imageUrl, box } = this.state;
+
 		return (
-	    <div className="App">
+			// Destructured states for cleaner code below without this.state.___
+			
+		    <div className="App">
 
-			<Particles className='particles' params={particleOptions}/>
+				<Particles className='particles' params={particleOptions}/>
 
-			<Navigation />
-			<Logo />
-			<Rank />
-			{/* Takes class event with 'this.onInputChange' as property of App*/}
-			{/* Needs to get triggered from impageLinkForm.js */}
-			{/* Add onButtonSubmit to imageLinkForm.js to print 'here' with button click  */}
-			<ImageLinkForm 
-				onInputChange={this.onInputChange} 
-				onButtonSubmit={this.onButtonSubmit}/>
-			{/* Takes imageUrl and passes to Facerecognition.js image src */}
-			<FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl} /> 
+				<Navigation
+					isSignedIn={isSignedIn}
+					onRouteChange={this.onRouteChange}
+					  />
+				<Logo />
 
+				{/*  Signin Page first unless logged in already */}
+				{ this.state.route === 'home'
+					// Prop onRouteChange
+					? <div>
+						<Rank />
+						{/* Takes class event with 'this.onInputChange' as property of App*/}
+						{/* Needs to get triggered from impageLinkForm.js */}
+						{/* Add onButtonSubmit to imageLinkForm.js to print 'here' with button click  */}
+						<ImageLinkForm
+							onInputChange={this.onInputChange} 
+							onButtonSubmit={this.onButtonSubmit}/>
+						{/* Takes imageUrl and passes to Facerecognition.js image src */}
+						<FaceRecognition box={box} imageUrl={imageUrl} /> 
 
-	    </div>
+					</div>
+
+					: ( this.state.route === 'signin'
+
+						? <Signin onRouteChange={this.onRouteChange}/>
+						: <Register onRouteChange={this.onRouteChange}/>
+					)
+						
+				};		
+
+		    </div>
   		);
 	};
 };

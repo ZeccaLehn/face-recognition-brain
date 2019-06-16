@@ -81,3 +81,28 @@ https://reactjs.org/docs/react-component.html#setstate
 # 233. Face Detection Box
 -----------------------------------------------------
 
+Project Files: Facial Recognition
+
+Frontend:
+https://github.com/aneagoie/face-recognition-brain
+
+Backend:
+https://github.com/aneagoie/face-recognition-brain-api
+
+Face Image Example for Model:
+https://media4.s-nbcnews.com/i/newscms/2017_47/2233721/171120-smile-stock-njs-333p_4ecd5b9a2aefbfdfbc3331c6d474d963.jpg
+
+Image Detection API Service Used in Project:
+https://www.clarifai.com/
+
+
+----------------------------------------------------
+# 234. Sign In Form And Routing
+----------------------------------------------------
+
+Tachyon Signin Form:
+http://tachyons.io/components/forms/sign-in/index.html
+
+Tachyon Cards:
+http://tachyons.io/components/cards/product-card/index.html
+
