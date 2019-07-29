@@ -65,15 +65,14 @@ class App extends Component{
 
 	// Updates state with new users from Register component
 	loadUser = (data) => {
-		this.setState({user: {
 
-			id: data.id,
-			name: data.name,
-			email: data.email,
-			entries: data.entries,
-			joined: data.joined
-
-		}})
+	    this.setState({user: {
+		      id: data.id,
+		      name: data.name,
+		      email: data.email,
+		      entries: data.entries,
+		      joined: data.joined
+	    	}})
 	}
 
 	// // Conntect Front and Back End
@@ -159,7 +158,7 @@ class App extends Component{
 				{ this.state.route === 'home'
 					// Prop onRouteChange
 					? <div>
-						<Rank />
+						<Rank name={this.state.user.name} entries={this.state.user.entries}/>
 						{/* Takes class event with 'this.onInputChange' as property of App*/}
 						{/* Needs to get triggered from impageLinkForm.js */}
 						{/* Add onButtonSubmit to imageLinkForm.js to print 'here' with button click  */}
@@ -173,7 +172,7 @@ class App extends Component{
 
 					: ( this.state.route === 'signin'
 
-						? <Signin onRouteChange={this.onRouteChange}/>
+						? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
 						: <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
 					)
 						
