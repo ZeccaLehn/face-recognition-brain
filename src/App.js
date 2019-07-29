@@ -50,9 +50,31 @@ class App extends Component{
 			imageURL: {},
 			box: {},
 			route: 'signin',
-			isSignedIn: false
+			isSignedIn: false,
+			user: {
+				id: '',
+				name: '',
+				password: '',
+				email: '',
+				entries: 0,
+				joined: ''
+
+			}
 		};
 	};
+
+	// Updates state with new users from Register component
+	loadUser = (data) => {
+		this.setState({user: {
+
+			id: data.id,
+			name: data.name,
+			email: data.email,
+			entries: data.entries,
+			joined: data.joined
+
+		}})
+	}
 
 	// // Conntect Front and Back End
 	// Prints data to cosole
@@ -117,6 +139,7 @@ class App extends Component{
 
 	render(){
 
+		// For passing components
 		const { isSignedIn, imageUrl, box } = this.state;
 
 		return (
@@ -151,7 +174,7 @@ class App extends Component{
 					: ( this.state.route === 'signin'
 
 						? <Signin onRouteChange={this.onRouteChange}/>
-						: <Register onRouteChange={this.onRouteChange}/>
+						: <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
 					)
 						
 				}

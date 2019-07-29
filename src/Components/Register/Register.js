@@ -1,8 +1,70 @@
 import React from 'react';
 
 
-const Register = ({ onRouteChange }) => {
-  return(
+class Register extends React.Component {
+// Note: was "const Register = ({ onRouteChange }) => {"
+
+    constructor(props){
+
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      name: ''
+    }
+  }
+
+  onNameChange = (event) => {
+
+    this.setState({ name: event.target.value });
+
+  }
+
+  onEmailChange = (event) => {
+
+    this.setState({ email: event.target.value });
+
+  }
+
+  onPasswordChange = (event) => {
+
+    this.setState({ password: event.target.value });
+
+  }
+
+  onSubmitSignin = () => {
+
+    // Fetches the signin function
+    //  sends us to home if signin works
+    fetch('http://localhost:5000/register',{
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+
+      .then(response => response.json())
+      .then(user => {
+        if(user){
+
+          // Prints out username and password
+          // console.log(this.state);
+          this.props.loadUser(user)
+          this.props.onRouteChange('home');
+        }
+      })
+  }
+
+
+  render(){
+
+    // Destructuring to get route change from props
+    // const { onRouteChange } = this.props;
+
+    return(
 
     <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw5 shadow-5 center">
 
@@ -12,25 +74,41 @@ const Register = ({ onRouteChange }) => {
             <legend className="f3 fw6 ph0 mh0">Register</legend>
             <div className="mv3">
               <label className="db fw6 lh-copy f6" htmlFor="name">Name</label>
-              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="name"  id="name"/>
+              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+               type="text"
+                name="name"
+                id="name"
+                onChange={this.onNameChange}
+                />
             </div>
             <div className="mv3">
               <label className="db fw6 lh-copy f6" htmlFor="email">Email</label>
-              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="text" name="email"  id="email"/>
+              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+              type="text" 
+              name="email"  
+              id="email"
+              onChange={this.onEmailChange}
+              />
             </div>
             <div className="mv3">
               <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
+              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
+               type="password" 
+               name="password"  
+               id="password"
+               onChange={this.onPasswordChange}
+               />
             </div>
           </fieldset>
           <div className="">
             <input
             // Added on onRouteChange event handler passed here
             // The arrow function defines function
-            onClick={() => onRouteChange('home')}
+            onClick={this.onSubmitSignin}
             className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
             type="submit" 
             value="Register"/>
+
           </div>
         </div>
       </main>
@@ -38,6 +116,9 @@ const Register = ({ onRouteChange }) => {
     </article>
 
   );
+
+ };
+  
 };
 
 export default Register;
