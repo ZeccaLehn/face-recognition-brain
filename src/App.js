@@ -108,17 +108,33 @@ class App extends Component{
 		this.setState({input: event.target.value})
 	};
 
-	onButtonSubmit = (event) => {
-		// console.log('click');
-		/* Return image */
-		this.setState({ imageUrl: this.state.input})
+  	onButtonSubmit = () => {
+	    this.setState({imageUrl: this.state.input});
+	    app.models
+	      .predict(
+	        Clarifai.FACE_DETECT_MODEL,
+	        this.state.input)
+	      .then(response => {
+	        if (response) {
+	          fetch('http://localhost:5000/image', {
+	            method: 'post',
+	            headers: {'Content-Type': 'application/json'},
+	            body: JSON.stringify({
+	              id: this.state.user.id
+	            })
+	          })
+	            .then(response => response.json())
+	            .then(count => {
+	              this.setState(Object.assign(this.state.user, { entries: count}))
+	            })
 
-		/* For submitting to API on button click */
-		app.models.predict(Clarifai.FACE_DETECT_MODEL, this.state.input)
-			.then(response => this.displayFaceBox(this.calculateFaceLocation(response))
-			.catch(err => console.log(err))
-  		);
-	}
+	        }
+	        this.displayFaceBox(this.calculateFaceLocation(response))
+	      })
+	      .catch(err => console.log(err));
+	  }
+
+
 
 	// Prop used below in Signin
 	onRouteChange = (route) => {
