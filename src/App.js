@@ -16,9 +16,15 @@ import FaceRecognition from './Components/FaceRecognition/FaceRecognition.js'
 import Signin from './Components/Signin/Signin.js';
 import Register from './Components/Register/Register.js';
 
-// YOUR_API_KEY
+// // YOUR_API_KEY
+// // Imports .env vars
+// npm install dotenv --save
+require('dotenv').config();
+
+// https://www.clarifai.com
+// API_KEY
 const app = new Clarifai.App({
-	apiKey: 'YOUR_API_KEY'
+	apiKey: process.env.REACT_APP_API_KEY
 });
 
 
