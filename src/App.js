@@ -19,6 +19,8 @@ import Register from './Components/Register/Register.js';
 // // YOUR_API_KEY
 // // Imports .env vars
 // npm install dotenv --save
+// Note: Requires "REACT_APP_" prefix in front end
+// Also requires .env be in root, and not src folder
 require('dotenv').config();
 
 // https://www.clarifai.com
